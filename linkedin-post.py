@@ -10,8 +10,9 @@ response = requests.get(url=url, headers=header)
 person_id = response.json()['id']
 
 # text to share
-text = input('Text:')
-
+text = input('Text: ')
+to_url = input('Url to redirect: ')
+url_title = input('Url Title: ')
 # share post
 url = "https://api.linkedin.com/v2/shares"
 headers = {
@@ -19,6 +20,16 @@ headers = {
     'Content-Type' : 'application/json'
 }
 payload = {
+    
+    "content": {
+        "contentEntities": [
+            {
+                "entityLocation": to_url,
+                
+            }
+        ],
+        "title": url_title,
+    },
     'owner': f'urn:li:person:{person_id}',
     'text': {
         'text': text
